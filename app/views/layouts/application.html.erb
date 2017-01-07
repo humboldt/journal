@@ -9,8 +9,13 @@
   </head>
 
   <body>
-    <%= link_to "Log in", "#" %>
-    <%= link_to "Sign up", signup_path %>
+    <% if logged_in? %>
+      <%= link_to "Settings", '#' %>
+      <%= link_to "Log out", logout_path, method: "delete" %>
+    <% else %>
+      <%= link_to "Log in", login_path %>
+      <%= link_to "Sign up", signup_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
