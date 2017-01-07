@@ -1,0 +1,10 @@
+= simple_form_for @user do |f|
+  = render 'shared/error_messages'
+  = f.input :name
+  = f.input :email
+  = f.input :password
+  = f.input :password_confirmation
+  = f.button :submit
+
+= link_to "Change Avatar", "http://gravatar.com/emails", target: "_blank", rel: "noopener"
+= link_to "Delete account", @user, method: :delete
