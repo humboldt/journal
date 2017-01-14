@@ -1,2 +1,26 @@
-%h1 StaticPages#home
-%p Find me in app/views/static_pages/home.html.erb
+- if logged_in?
+  = render 'shared/user_info'
+
+  = link_to "create", new_path, method: "post", remote: true
+
+  - if current_user.entries.any?
+    - current_user.entries.each do |entry|
+      - if entry.title.empty?
+        - entry_title = "Untitled"
+      - else
+        - entry_title = entry.title
+      %h3= entry_title
+      - if entry.content.empty?
+        - entry_content = "Empty"
+      - else
+        - entry_content = sanitize(ActionView::Base.full_sanitizer.sanitize(entry.content))
+      %p= entry_content
+      - if current_user?(entry.user)
+        = link_to "edit", edit_path(:entry_id => entry.id)
+        = link_to "delete", destroy_path(:entry_id => entry.id), method: "post", remote: true
+
+  = render 'shared/entry_form'
+
+
+- else
+  %p StaticHome
