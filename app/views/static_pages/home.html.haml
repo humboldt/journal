@@ -3,21 +3,12 @@
 
   = link_to "create", new_path, method: "post", remote: true
 
+  - if current_user.entries.tag_counts_on(:tags).any?
+    = render 'shared/tags'
+
   - if current_user.entries.any?
-    - current_user.entries.each do |entry|
-      - if entry.title.empty?
-        - entry_title = "Untitled"
-      - else
-        - entry_title = entry.title
-      %h3= entry_title
-      - if entry.content.empty?
-        - entry_content = "Empty"
-      - else
-        - entry_content = sanitize(ActionView::Base.full_sanitizer.sanitize(entry.content))
-      %p= entry_content
-      - if current_user?(entry.user)
-        = link_to "edit", edit_path(:entry_id => entry.id)
-        = link_to "delete", destroy_path(:entry_id => entry.id), method: "post", remote: true
+    %div.entries-section
+      = render partial: 'shared/entries', locals: { entries: current_user.entries }
 
   = render 'shared/entry_form'
 

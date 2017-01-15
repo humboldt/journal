@@ -1,0 +1,19 @@
+- entries.each do |entry|
+  - if entry.title.empty?
+    - entry_title = "Untitled"
+  - else
+    - entry_title = entry.title
+  %h3= entry_title
+
+  - if entry.tags.any?
+    - entry.tags.each do |tag|
+      %span= tag
+
+  - if entry.content.empty?
+    - entry_content = "Empty"
+  - else
+    - entry_content = sanitize(ActionView::Base.full_sanitizer.sanitize(entry.content))
+  %p= entry_content
+  - if current_user?(entry.user)
+    = link_to "edit", edit_path(:entry_id => entry.id)
+    = link_to "delete", destroy_path(:entry_id => entry.id), method: "post", remote: true
