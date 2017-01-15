@@ -14,6 +14,7 @@
   - else
     - entry_content = sanitize(ActionView::Base.full_sanitizer.sanitize(entry.content))
   %p= entry_content
+
   - if current_user?(entry.user)
     = link_to "edit", edit_path(:entry_id => entry.id)
     = link_to "delete", destroy_path(:entry_id => entry.id), method: "post", remote: true

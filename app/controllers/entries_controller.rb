@@ -17,7 +17,11 @@ class EntriesController < ApplicationController
 
   def update
     @entry = current_user.entries.find(params[:id])
-    if @entry.tag_list.add(params[:tag_list], parse: true) && @entry.update_attributes(entry_params)
+    content_plain = CGI.unescapeHTML(ActionView::Base.full_sanitizer.sanitize(
+                    entry_params[:content]))
+
+    if @entry.tag_list.add(params[:tag_list], parse: true) &&
+       @entry.update_attributes(entry_params.merge(content_plain: content_plain))
       redirect_to edit_path(:entry_id => @entry.id)
     else
       render 'edit'
@@ -34,6 +38,14 @@ class EntriesController < ApplicationController
     filter_by_tag
   end
 
+  def search
+    @entries = current_user.entries.search(params[:term])
+
+    respond_to do |format|
+      format.html { render 'show', :layout => false }
+    end
+  end
+
   def sort
     filter_by_tag
 
@@ -45,7 +57,7 @@ class EntriesController < ApplicationController
   private
 
     def entry_params
-      params.require(:entry).permit(:title, :content, :tag_list)
+      params.require(:entry).permit(:title, :content, :content_plain, :tag_list)
     end
 
     def correct_user

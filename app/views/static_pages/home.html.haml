@@ -1,6 +1,7 @@
 - if logged_in?
   = render 'shared/user_info'
 
+  = render 'shared/search_form'
   = link_to "create", new_path, method: "post", remote: true
 
   - if current_user.entries.tag_counts_on(:tags).any?
@@ -9,8 +10,6 @@
   - if current_user.entries.any?
     %div.entries-section
       = render partial: 'shared/entries', locals: { entries: current_user.entries }
-
-  = render 'shared/entry_form'
 
 
 - else

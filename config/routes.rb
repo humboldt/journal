@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   get    '/edit',           to: 'entries#edit'
   post   '/edit',           to: 'entries#update'
   post   '/destroy',        to: 'entries#destroy'
+  get    '/search',         to: 'entries#search'
   get    '/sort',           to: 'entries#sort'
   resources :users, only: [:create, :destroy, :edit, :update]
-  resources :entries, only: [:create, :destroy, :edit, :show, :update, :sort]
+  resources :entries, only: [:create, :destroy, :edit, :show, :update, :search,
+                             :sort]
 end
