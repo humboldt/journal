@@ -1,16 +1,62 @@
 - if logged_in?
-  = render 'shared/user_info'
+  - provide(:body_id, "user-home")
 
-  = render 'shared/search_form'
-  = link_to "create", new_path, method: "post", remote: true
+  .mobile-container.entries
+    %section.mobile-section
+      %a.back-button.dripicons-arrow-thin-left.relative-right{ "data-action": "entries", href: "#" }
 
-  - if current_user.entries.tag_counts_on(:tags).any?
-    = render 'shared/tags'
+      .container
+        %a.logo{ "data-method": "get", "data-remote": "false", href: root_url }
+          %img{ alt: "Journal", src: image_url("icon-white-logo-colored-background.svg") }/
+        .search-new.flex-wrapper.space-between
+          = render 'shared/search_form'
+          = link_to "", new_path, class: "dripicons-plus new", method: "post", remote: false
+        .toggle-tags.flex-wrapper.space-between
+          %span Tags
+          %a.dripicons-chevron-down.toggle-tags-button{ "data-action": "tags", href: "#" }
+        .tags-container
+          = render 'shared/tags'
+        .entries-container
+          - if current_user.entries.any?
+            = render partial: 'shared/entries', locals: { entries: current_user.entries }
 
-  - if current_user.entries.any?
-    %div.entries-section
-      = render partial: 'shared/entries', locals: { entries: current_user.entries }
+  %header.header-mobile
+    %a.dripicons-menu{ "data-action": "entries", href: "#" }
+    %a.logo.flex-wrapper{ href: root_url }
+      %img{ alt: "Journal", src: image_url("icon-colored-logo-transparent-background.svg") }/
+      %h1 Journal
+    = link_to "", settings_path, class: "dripicons-user", method: "get", remote: false
+
+  %aside.aside.entries
+
+  .nav-main-container
+    %nav.nav
+      .flex-wrapper.space-between
+        %a{ "data-method": "get", "data-remote": "false", class: "edit-entry", href: "#" } Edit Entry
+        %ul.flex-wrapper
+          %li
+            %a.flex-wrapper.profile{ "data-method": "get", "data-remote": "false", href: settings_path }
+              = gravatar_for(current_user)
+              %span= current_user.name
+          %li
+            = link_to "Log out", logout_path, method: "delete", remote: true
+    %main.main
+      .container
 
 
 - else
-  %p StaticHome
+  - provide(:body_id, "home")
+
+  .overlay
+  %header.header
+    .container.flex-wrapper.space-between
+      .flex-wrapper
+        %a.logo.flex-wrapper{ href: root_url }
+          %img{ alt: "Journal", src: image_url("icon-logo-transparent-background.svg") }/
+          %h1 Journal
+      = link_to "Log in", login_path, method: "get", remote: false
+  %main.main
+    .container
+      %h1 Journal
+      %h5 Your online notebook.
+      = link_to "Sign up", signup_path, class: "button", method: "get", remote: false

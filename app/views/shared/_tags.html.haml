@@ -1,4 +1,7 @@
-%div.tags-section
-  = link_to "All", '#', :onclick => "sortByTag(event)"
-  - current_user.entries.tag_counts_on(:tags).order("lower(tags.name)").each do |tag_name|
-    = link_to tag_name, '#', :onclick => "sortByTag(event)"
+%ul
+  %li
+    = link_to "All Entries", '#', class: "active", :onclick => "sortByTag(event)"
+  - if current_user.entries.tag_counts_on(:tags).any?
+    - current_user.entries.tag_counts_on(:tags).order("lower(tags.name)").each do |tag_name|
+      %li
+        = link_to tag_name, '#', :onclick => "sortByTag(event)"

@@ -1,7 +1,16 @@
-= simple_form_for @user, :url => signup_path do |f|
-  = render 'shared/error_messages', object: f.object
-  = f.input :name
-  = f.input :email
-  = f.input :password
-  = f.input :password_confirmation
-  = f.button :submit
+= link_to "", root_url, class: "back-button dripicons-arrow-thin-left", method: "get", remote: false
+%section.form-section
+  .container
+    %a.logo.flex-wrapper{ "data-method": "get", "data-remote": "false", href: root_url }
+      %img{ alt: "Journal", src: image_url("icon-colored-logo-transparent-background.svg") }/
+      %h1 Journal
+    = simple_form_for @user, url: signup_path do |f|
+      = render 'shared/error_messages', object: f.object
+      %section.alert-section
+        %div.alert.alert-info
+          %p This app is for demonstration purposes only. In order to save space, the database is reseted every week.
+      = f.input :name, placeholder: "Name", label: false, error: false, autofocus: true
+      = f.input :email, placeholder: "Email", label: false, error: false
+      = f.input :password, placeholder: "Password", label: false, error: false
+      = f.input :password_confirmation, placeholder: "Password Confirmation", label: false, error: false
+      = f.submit "Sign up", class: 'button'

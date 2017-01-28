@@ -1,5 +1,16 @@
-= simple_form_for :session, :url => login_path do |f|
-  = f.input :email
-  = f.input :password
-  = f.input_field :remember_me, as: :boolean, inline_label: 'Stay signed in'
-  = f.button :submit
+= link_to "", root_url, class: "back-button dripicons-arrow-thin-left", method: "get", remote: false
+%section.form-section
+  .container
+    %a.logo.flex-wrapper{ "data-method": "get", "data-remote": "false", href: root_url }
+      %img{ alt: "Journal", src: image_url("icon-colored-logo-transparent-background.svg") }/
+      %h1 Journal
+    %section.alert-section
+      - flash.each do |message_type, message|
+        %div{ class: "alert alert-#{message_type}" }= message
+    = simple_form_for :session, url: login_path do |f|
+      = f.input :email, placeholder: "Email", label: false, autofocus: true
+      = f.input :password, placeholder: "Password", label: false
+      .form-bottom
+        %div
+          = f.input :remember_me, as: :boolean, inline_label: "Stay signed in"
+      = f.submit "Log in", class: 'button'

@@ -1,10 +1,19 @@
-= simple_form_for @user do |f|
-  = render 'shared/error_messages', object: f.object
-  = f.input :name
-  = f.input :email
-  = f.input :password
-  = f.input :password_confirmation
-  = f.button :submit
-
-= link_to "Change Avatar", "http://gravatar.com/emails", target: "_blank", rel: "noopener"
-= link_to "Delete account", @user, method: :delete
+= link_to "", root_url, class: "back-button dripicons-arrow-thin-left", method: "get", remote: false
+%section.form-section
+  .container
+    %a.logo.flex-wrapper{ "data-method": "get", "data-remote": "false", href: root_url }
+      %img{ alt: "Journal", src: image_url("icon-colored-logo-transparent-background.svg") }/
+      %h1 Journal
+    %section.alert-section
+      - flash.each do |message_type, message|
+        %div{ class: "alert alert-#{message_type}" }= message
+    = simple_form_for @user, url: settings_path, method: :post do |f|
+      = render 'shared/error_messages', object: f.object
+      = f.input :name, placeholder: "Name", label: false, error: false
+      = f.input :email, placeholder: "Email", label: false, error: false
+      = f.input :password, placeholder: "Password", label: false, error: false
+      = f.input :password_confirmation, placeholder: "Password Confirmation", label: false, error: false
+      = f.submit "Update Account", class: 'button'
+    %hr/
+    = link_to "Change Avatar", "http://gravatar.com/emails", class: "button button-grey", target: "_blank", rel: "noopener"
+    = link_to "Log out", logout_path, class: "button button-grey", method: "delete", remote: false

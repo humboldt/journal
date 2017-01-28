@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %title Journal
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', 'https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,400italic,500,700,700italic', media: 'all', 'data-turbolinks-track': 'true'
+    = stylesheet_link_tag    'application', 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700,700i', media: 'all', 'data-turbolinks-track': 'true'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body{ id: yield(:body_id) }
+    = yield

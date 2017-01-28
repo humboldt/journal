@@ -1,8 +1,20 @@
-= link_to "Home", root_url, method: "get"
+- provide(:body_id, "edit-entry")
 
-= simple_form_for @entry, remote: true do |f|
-  = render 'shared/error_messages', object: f.object
-  = f.input_field :title, placeholder: "Title"
-  = f.input_field :tag_list, placeholder: "Tags"
-  = f.trix_editor :content
-  = f.submit 'Save'
+.top-bar.flex-wrapper.space-between
+  = link_to "", root_url, class: "back-button dripicons-arrow-thin-left", method: "get", remote: false, tabindex: "-1"
+  %span.save-state
+%section.form-section.editor.no-flexbox
+  .container
+    = simple_form_for @entry, remote: true do |f|
+      = render 'shared/error_messages', object: f.object
+      = f.input_field :title, class: "title", autofocus: true, tabindex: "2", placeholder: "Title"
+      .tags-section
+        %ul
+          - @entry.tag_list.each do |tag|
+            %li.tag
+              %a{ href: "#", tabindex: "-1" }= tag
+          %li
+            %input.new-tag{ placeholder: "New tag", tabindex: "2", type: "text" }/
+
+        = f.hidden_field :tag_list, class: "tags", value: @entry.tag_list.join(", ")
+      = f.trix_editor :content, placeholder: "Type something..."

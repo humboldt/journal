@@ -1,11 +1,11 @@
 class EntriesController < ApplicationController
-  before_action :logged_in_user, only: [:create, :edit, :destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :logged_in_user #, only: [:create, :edit, :destroy, :update]
+  before_action :correct_user #,   only: :destroy
 
   def create
     @entry = current_user.entries.build(title: '', content: '', tag_list: '')
     if @entry.tag_list.add(params[:tag_list], parse: true) && @entry.save
-      redirect_to edit_path(:entry_id => @entry.id)
+      redirect_to edit_path(entry_id: @entry.id), remote: false
     else
       render 'static_pages/home'
     end
@@ -22,35 +22,48 @@ class EntriesController < ApplicationController
 
     if @entry.tag_list.add(params[:tag_list], parse: true) &&
        @entry.update_attributes(entry_params.merge(content_plain: content_plain))
-      redirect_to edit_path(:entry_id => @entry.id)
+       respond_to do |format|
+         format.html { render html: 'Saved' }
+       end
     else
-      render 'edit'
+      redirect_to edit_path(entry_id: @entry.id)
     end
   end
 
   def destroy
     @entry = current_user.entries.find(params[:entry_id])
     @entry.destroy
-    redirect_to root_url
+
+    # Reload the tag list, removing unused tags (if any)
+    respond_to do |format|
+      format.html { render partial: 'shared/tags' }
+    end
   end
 
   def show
-    filter_by_tag
+  end
+
+  def show_single
+    @entry = current_user.entries.find(params[:id])
+
+    respond_to do |format|
+      format.html { render partial: 'shared/entry', locals: { entry: @entry } }
+    end
   end
 
   def search
-    @entries = current_user.entries.search(params[:term])
+    @entries = filter_by_tag.search(params[:term])
 
     respond_to do |format|
-      format.html { render 'show', :layout => false }
+      format.html { render 'show', layout: false }
     end
   end
 
   def sort
-    filter_by_tag
+    @entries = filter_by_tag
 
     respond_to do |format|
-      format.html { render 'show', :layout => false }
+      format.html { render 'show', layout: false }
     end
   end
 
@@ -65,10 +78,10 @@ class EntriesController < ApplicationController
     end
 
     def filter_by_tag
-      if params[:tag_name] == 'All'
-        @entries = current_user.entries
+      if params[:tag_name] == 'All Entries' || params[:tag_name] == nil
+        current_user.entries
       else
-        @entries = current_user.entries.tagged_with(params[:tag_name])
+        current_user.entries.tagged_with(params[:tag_name])
       end
     end
 end

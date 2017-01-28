@@ -1,0 +1,95 @@
+
+// Editor (Trix)
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+#edit-entry
+  overflow: initial
+
+.top-bar
+  padding-left: $padding-default
+  padding-right: $padding-default
+  width: 100%
+  +media('tablet')
+    position: fixed !important
+
+  .back-button,
+  .save-state
+    position: relative !important
+
+  .back-button
+    left: 0 !important
+    top: 0 !important
+
+  .save-state
+    color: darken($color-light, 10)
+
+.form-section
+  overflow-y: initial !important
+
+.editor
+  padding-top: 0 !important
+
+  +media('tablet')
+    padding-top: 4.0rem !important
+
+  .container
+    max-width: 100.0rem !important
+    width: 100%
+
+  .title
+    border: none
+    color: $color-darker
+    font-family: $font-serif
+    font-size: 3.0rem
+    padding-left: .6rem
+    padding-right: .6rem
+    +input-placeholder
+      color: $color-darker
+
+    &:hover,
+    &:focus
+      border: none
+
+  .tags-section
+    color: $color-primary
+    font-size: 1.6rem
+    font-weight: 400
+    margin-bottom: .5rem
+    padding-left: .6rem
+    padding-right: .6rem
+    text-align: left
+
+    ul,
+    li
+      margin-bottom: 0
+
+      li
+        display: inline-block
+        margin-right: 1.0rem
+
+      input
+        border: none
+        font-size: 1.6rem
+        height: auto
+        line-height: normal
+        margin: 0
+        padding: 0
+        max-width: 7.0rem
+        +input-placeholder
+          color: darken($color-light, 10)
+
+  trix-editor
+    border: none
+    color: $color-darker
+    font-family: $font-sans-serif
+    font-size: 1.8rem
+    font-weight: 400
+    padding-top: 1.0rem
+    text-align: left
+
+    // Placeholder
+    &:empty:not(:focus)::before
+      color: darken($color-light, 10)
+
+    h1
+      font-size: 2.5rem
+      margin-bottom: .75rem

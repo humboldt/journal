@@ -1,0 +1,39 @@
+
+// Mixins
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+=alert-colors($color)
+  background-color: lighten($color, 30)
+  border-color: $color
+  color: darken($color, 30)
+
+=input-placeholder
+  &.placeholder
+    @content
+  &:-moz-placeholder
+    @content
+    opacity: 1
+  &::-moz-placeholder
+    @content
+    opacity: 1
+  &:-ms-input-placeholder
+    @content
+  &::-webkit-input-placeholder
+    @content
+
+=media($width, $type: min)
+  @if map-has-key($breakpoints, $width)
+    $width: map-get($breakpoints, $width)
+
+    @if $type == max
+      $width: $width - 1.0rem
+
+    @media (#{$type}-width: $width)
+      @content
+
+=set-icons($selectors, $urls, $color: $color-darker)
+  $color-formatted: str-insert(str-slice("#{$color}", 2), '%23', 0)
+  @each $selector, $url in zip($selectors, $urls)
+    &#{$selector}::before
+      $url-final: str-insert($url, ' fill="#{$color-formatted}"', 82)
+      background-image: url('#{$url-final}') !important

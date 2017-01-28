@@ -1,5 +1,0 @@
-= simple_form_for @entry.build, remote: true do |f|
-  = render 'shared/error_messages', object: f.object
-  = f.input_field :title, placeholder: "Title"
-  = f.trix_editor :content
-  = f.button :submit

@@ -1,0 +1,32 @@
+
+// Alert
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+
+.alert
+  border: .1rem solid transparent
+  border-radius: $border-radius-default
+  font-weight: 300
+  margin-bottom: .5rem
+  padding: 1.5rem
+  text-align: left
+
+  +media('tablet')
+    margin-bottom: 1.0rem
+
+  &+ .alert
+    margin-top: -.5rem
+
+  &.alert-danger
+    +alert-colors($color-red)
+
+  &.alert-info
+    +alert-colors($color-blue)
+
+  &.alert-success
+    +alert-colors($color-green)
+
+  // Spacing
+  ul,
+  li,
+  p
+    margin-bottom: 0

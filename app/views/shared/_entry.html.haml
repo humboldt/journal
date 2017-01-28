@@ -1,0 +1,20 @@
+%a{ "data-method": "get", "data-remote": "false", class: "edit-entry mobile", href: "/edit?entry_id=#{entry.id}" } Edit Entry
+
+- if entry.title.empty?
+  - entry_title = "Untitled"
+- else
+  - entry_title = entry.title
+%h1{ class: "entry-title" }= entry_title
+
+- if entry.tag_counts_on(:tags).any?
+  .tags-section.flex-wrapper
+    %span.dripicons-tags.tags-icon
+    %ul.entry-tags
+      - entry.tags.each do |tag|
+        %li= tag
+.entry-content
+  - if entry.content.empty?
+    - entry_content = "This entry is empty."
+  - else
+    - entry_content = sanitize(entry.content)
+  = entry_content

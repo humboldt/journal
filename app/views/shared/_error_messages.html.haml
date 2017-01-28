@@ -1,3 +1,6 @@
 - if object.errors.any?
-  - object.errors.full_messages.each do |msg|
-    %p= msg
+  %section.alert-section
+    %div.alert.alert-danger
+      %ul
+        - object.errors.full_messages.each do |message|
+          %li= message

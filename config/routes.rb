@@ -14,9 +14,11 @@ Rails.application.routes.draw do
   post   '/new',            to: 'entries#create'
   get    '/edit',           to: 'entries#edit'
   post   '/edit',           to: 'entries#update'
-  post   '/destroy',        to: 'entries#destroy'
+  get    '/destroy',        to: 'entries#destroy'
   get    '/search',         to: 'entries#search'
+  get    '/show_single',    to: 'entries#show_single'
   get    '/sort',           to: 'entries#sort'
+  get    '*path',           to: redirect('/')
   resources :users, only: [:create, :destroy, :edit, :update]
   resources :entries, only: [:create, :destroy, :edit, :show, :update, :search,
                              :sort]

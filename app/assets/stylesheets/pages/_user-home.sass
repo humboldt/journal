@@ -1,0 +1,374 @@
+#user-home
+  background-color: #f9f9f9 // I needed this specific value
+  //background-color: lighten($color-lighter, 5)
+  display: flex
+  flex-direction: column
+  height: 100%
+
+  +media('tablet')
+    display: block
+
+  .header-mobile
+    align-items: center
+    background-color: $color-lightest
+    border-bottom: .1rem solid $color-light
+    display: flex
+    font-size: 2.0rem
+    justify-content: space-between
+    margin: 0 auto
+    padding: .5rem $padding-default
+    position: relative
+    width: 100%
+
+    +media('tablet')
+      display: none
+
+    // For the icons
+    a
+      color: $color-dark
+      line-height: 100%
+
+      &::before
+        vertical-align: top
+
+    .logo
+      img
+        width: 3.6rem
+
+      h1
+        color: $color-primary
+        font-size: 2.0rem
+        font-weight: 600
+        margin-bottom: 0
+        text-transform: uppercase
+
+  .mobile-container
+    background-color: $color-lightest
+    display: none
+    height: 100%
+    position: absolute
+    width: 100%
+    z-index: 9
+
+    .mobile-section
+      align-items: center
+      display: flex
+      flex-direction: column
+      height: 100%
+      max-height: 100%
+
+    .back-button
+      &.relative-right
+        position: relative
+        left: 0
+        padding-right: $padding-default
+        text-align: right
+        width: 100%
+
+    .container
+      overflow-y: hidden
+
+      .button-grey
+        margin-top: .5rem
+
+  .entries
+    +media('tablet')
+      background-color: $color-lightest
+      border-right: .1rem solid $color-lighter
+      float: left
+      height: 100%
+      max-height: 100%
+      max-width: 35.0rem
+      width: 35.0rem
+
+    .container
+      display: flex
+      flex-direction: column
+      height: 100%
+      max-height: 100%
+      max-width: 35.0rem !important
+
+    .logo
+      img
+        display: none
+        margin: 0 auto
+        padding: $padding-default 0
+        width: $logo-aside-size-default
+
+        +media('tablet')
+          display: block
+
+    .search-new,
+    .toggle-tags
+      border-bottom: .1rem solid $color-lighter
+      flex-shrink: 0
+      padding-bottom: 1.5rem
+
+    .search-new
+      margin-bottom: 1.5rem
+      margin-top: 3.0rem
+
+      form
+        flex-grow: 1
+        margin-bottom: 0
+        position: relative
+
+        .search-icon
+          position: absolute
+          left: 0
+          top: 0
+
+          &::before
+            color: $color-lighter
+            font-size: $icon-font-size-default
+            // align the icon vertically
+            padding: ($input-height-small - $icon-font-size-default) / 2
+            position: absolute
+            // invert the search icon.
+            transform: scale(-1, 1)
+            transition: $transition-default
+
+        .search
+          border-radius: 2.0rem
+          height: $input-height-small
+          margin-bottom: 0
+          padding-left: 4.0rem
+
+          &:hover + .search-icon::before
+            color: $color-light
+
+          &:focus + .search-icon::before
+            color: $color-primary
+
+
+    .tags-container
+      position: relative
+      overflow-x: hidden
+      overflow-y: auto
+
+      &.active
+        border-bottom: .1rem solid $color-lighter
+
+      ul
+        display: none
+        list-style-type: none
+        margin-bottom: 0
+        text-align: left
+
+        li
+          margin-top: .5rem
+          margin-left: ($input-height-small - $icon-font-size-default) / 2
+
+          &:last-child
+            margin-bottom: .5rem
+
+        a
+          color: $color-dark
+          font-weight: 400
+
+          &:hover,
+          &.active
+            color: $color-primary
+
+    span
+      font-weight: 600
+
+    // Entries section
+    .entries-container
+      max-height: 100%
+      overflow-y: auto
+      overflow-x: hidden
+
+      // Hide the scrollbar on some browsers
+      &::-webkit-scrollbar
+        width: 0px
+        background: transparent
+
+    .entry-single
+      border-bottom: .1rem solid $color-lighter
+      border-radius: .4rem
+      cursor: pointer
+      padding: 1.0rem (($input-height-small - $icon-font-size-default) / 2)
+      text-align: left
+      transition: $transition-default
+
+      &:hover
+        background-color: lighten($color-lighter, 4)
+
+      .delete-entry
+        display: none
+
+      &.active
+        background-color: lighten($color-lighter, 2)
+        cursor: default
+
+        .entry-info
+          // 100% - (the size of the icon + the amount of padding on one side of the icon)
+          max-width: calc(100% - #{$icon-font-size-default + ($input-height-small - $icon-font-size-default) / 2})
+
+        .delete-entry
+          display: block
+
+      .entry-info
+        max-width: 100%
+
+        h1,
+        p
+          margin-bottom: 0
+          overflow: hidden
+          text-overflow: ellipsis
+          white-space: nowrap
+
+        h1
+          color: $color-darker
+          font-family: $font-serif
+          font-size: 2.25rem
+          font-weight: 500
+
+        p
+          font-weight: 400
+
+    // icons
+    .new,
+    .toggle-tags-button
+      border-radius: .4rem
+      color: $color-primary
+      font-size: $icon-font-size-default
+      margin-left: 2.0rem
+      // align the icon vertically
+      padding: ($input-height-small - $icon-font-size-default) / 2
+
+      &:hover
+        background-color: lighten($color-lighter, 2)
+        color: $color-primary
+
+    .delete-entry
+      color: $color-primary
+      font-size: $icon-font-size-default
+
+      &:hover
+        color: $color-primary
+
+  .nav-main-container
+    display: flex
+    flex-direction: column
+    overflow-y: scroll
+
+    +media('tablet')
+      height: 100%
+      overflow-y: hidden
+
+    .nav
+      background-color: $color-lightest
+      border-bottom: .1rem solid $color-lighter
+      display: none
+      height: $logo-aside-size-default + $padding-default * 2
+      min-height: $logo-aside-size-default + $padding-default * 2
+      padding-left: $padding-default
+      padding-right: $padding-default
+
+      +media('tablet')
+        display: block
+
+      .flex-wrapper
+        height: 100%
+
+        a
+          color: $color-dark
+          font-size: 1.6rem
+          font-weight: 600
+
+          &:hover,
+          &:focus
+            color: $color-primary
+
+          &.profile
+            img
+              border-radius: $logo-aside-size-default
+              height: $logo-aside-size-default
+              margin-right: 1.0rem
+              width: $logo-aside-size-default
+
+          &.edit-entry
+            visibility: hidden
+
+            &.visible
+              visibility: visible
+
+        ul,
+        li
+          margin-bottom: 0
+
+        ul
+          list-style-type: none
+
+          li
+            display: inline-block
+
+            &+ li
+              margin-left: 3.0rem
+
+    .main
+      height: 100%
+      max-height: 100%
+
+      +media('tablet')
+        overflow-y: auto
+
+      .container
+        max-width: 80.0rem
+
+      .edit-entry
+        &.mobile
+          display: block
+          font-weight: 600
+          margin-top: 2.0rem
+          text-align: center
+
+          +media('tablet')
+            display: none
+
+      .entry-title
+        color: $color-darker
+        font-family: $font-serif
+        font-size: 2.8rem
+        font-weight: normal
+        margin-bottom: 0
+        margin-top: 2.0rem
+
+        +media('tablet')
+          margin-top: 3.0rem
+
+      .tags-section
+        padding: 1.0rem 0 0
+
+        .tags-icon
+          color: $color-primary
+          font-size: 2.4rem
+          margin-right: 1.0rem
+
+      .entry-tags
+        display: flex
+        flex-wrap: wrap
+        list-style-type: none
+        margin-bottom: 0
+
+        li
+          color: $color-primary
+          display: inline-block
+          font-weight: 400
+          margin-bottom: 0
+
+          &:first-child,
+          &+ li
+            margin-right: 1.5rem
+
+      .entry-content
+        color: $color-darker
+        font-size: 1.8rem
+        font-weight: normal
+        padding-top: 1.0rem
+
+        h1
+          font-size: 2.5rem
+          margin-bottom: .75rem
