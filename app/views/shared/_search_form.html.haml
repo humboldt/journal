@@ -1,3 +1,3 @@
 = simple_form_for search_path, html: { class: 'update-account-form', onkeydown: 'preventSubmit(event)' } do |f|
-  = f.input_field :term, class: 'search mobile', onkeyup: 'search()'
+  = f.input_field :term, class: 'search mobile', id: '_search_term', onkeyup: 'search()'
   %span.search-icon.dripicons-search
