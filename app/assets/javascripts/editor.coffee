@@ -58,7 +58,7 @@ $(window).load ->
 
   # Autosave
   timeoutId = undefined
-  $('.editor form input:not(.new-tag), .editor form trix-editor, .editor form input.tags').on 'input propertychange change', ->
+  $('.editor form input:not(.new-tag), .editor form trix-editor, .editor form input.tags').on 'input propertychange change cut paste', ->
     clearTimeout timeoutId
     timeoutId = setTimeout((->
       # Runs 1 second (1000 ms) after the last change
