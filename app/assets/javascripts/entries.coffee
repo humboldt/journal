@@ -12,7 +12,7 @@ checkContent = ->
 
 # Check if there's an active entry
 @checkEntries = () ->
-  if $('.entries-container').text().length <= 1
+  if !$('.entries-container div').hasClass('entry-single')
     $('.main .container').text('')
   else
     if !$('.entry-single').hasClass('active')
@@ -33,6 +33,7 @@ checkContent = ->
 
     $(selector).remove()
     checkEntries()
+    checkContent()
 
 # Simple actions that require some animation
 @actions =
